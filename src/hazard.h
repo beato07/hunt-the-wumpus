@@ -15,6 +15,12 @@ protected:
 	int m_hazardPos;
 };
 
+class Wumpus : public Hazard
+{
+public:
+	Wumpus() : Hazard() {}
+};
+
 class Bat : public Hazard
 {
 public:

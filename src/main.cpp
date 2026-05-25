@@ -1,8 +1,9 @@
 #include "game.h"
 
 int main() {
+    
+     Game game;
+     game.run();
 
-    Game WumpusGame;
-
-    return 0;
+     return 0;
 }

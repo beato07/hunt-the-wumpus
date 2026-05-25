@@ -9,7 +9,7 @@ public:
 
 	void initializeCave();
 
-	const std::vector<int>& getNeighborRooms(int room) const;
+	const std::vector<int>& getNeighborRooms(int room);
 
 	int getRandomRoom() const;
 
