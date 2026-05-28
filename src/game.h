@@ -13,6 +13,7 @@ private:
 	void setupEntities();
 	void help();
 	void printRules();
+	void printRoomInfo(int playerPos, Map& gameMap);
 
 private:
 	Map m_gameMap;

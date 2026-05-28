@@ -111,23 +111,37 @@ void Game::printRules()
 	std::cout << " PIT   -  'I FEEL A DRAFT'\n\n";
 }
 
+void Game::printRoomInfo(int playerPos, Map& gameMap)
+{
+	const auto& neighbors = gameMap.getNeighborRooms(playerPos);
+
+	std::cout << "\nYOU ARE IN ROOM  " << playerPos << '\n';
+	std::cout << "TUNNELS LEAD TO  ";
+
+	for (int neighbor : neighbors)
+	{
+		std::cout << neighbor << ' ';
+	}
+	std::cout << std::endl;
+}
+
 void Game::run()
 {
 	help();
 
-	std::cout << "HUNT THE WUMPUS";
+	std::cout << "\nHUNT THE WUMPUS\n";
 
 	bool isRunning = true;
 	while (isRunning)
 	{
 		int playerPos = m_player.getPos();
 		int wumpusPos = m_wumpus.getPos();
-		int batPos1 = m_bat1.getPos();
-		int batPos2 = m_bat2.getPos();
-		int pitPos1 = m_pit1.getPos();
-		int pitPos2 = m_pit2.getPos();
+		int batPos1   = m_bat1.  getPos();
+		int batPos2   = m_bat2.  getPos();
+		int pitPos1   = m_pit1.  getPos();
+		int pitPos2   = m_pit2.  getPos();
 
-		std::cout << "You are in room " << playerPos << "\n";
+		printRoomInfo(playerPos, m_gameMap);
 
 		isRunning = false;
 	}
