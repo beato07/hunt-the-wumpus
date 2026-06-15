@@ -1,7 +1,6 @@
 #include "map.h"
-#include <random>
 
-Map::Map() 
+Map::Map()
 {
 	initializeCave();
 }
@@ -30,16 +29,12 @@ void Map::initializeCave()
 	m_cave[20] = { 11, 17, 19 };
 }
 
-const std::vector<int>& Map::getNeighborRooms(int room)
+const std::set<int>& Map::getNeighborRooms(int currentRoom)
 {
-	return m_cave[room];
+	return m_cave[currentRoom];
 }
 
-int Map::getRandomRoom() const
+bool Map::areConnected(int roomFirst, int roomSecond)
 {
-	static std::random_device rd;
-	static std::mt19937 gen(rd());
-	static std::uniform_int_distribution<int> dist(1, 20);
-
-	return dist(gen);
+	return m_cave.at(roomFirst).contains(roomSecond);
 }

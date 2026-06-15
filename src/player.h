@@ -1,17 +1,18 @@
 #pragma once
+#include "map.h"
+#include "hazard.h"
 
 class Player
 {
 public:
-	Player() : m_playerPos(0), m_arrows(5) {}
-
-	int getPos() const { return m_playerPos; }
-	int getArrows() const { return m_arrows; }
-
-	void setPos(int newPos) { m_playerPos = newPos; }
-	void useArrow();
+	int getPos() { return m_playerPos; }
+	void setPos(int newPlayerPos) { m_playerPos = newPlayerPos; }
+	bool tryShoot();
+	bool tryMove();
 
 private:
-	int m_playerPos;
-	int m_arrows;
+	Map m_gameMap;
+	Wumpus m_wumpus;
+	int m_playerPos{ 0 };
+	int m_arrowsCount{ 5 };
 };

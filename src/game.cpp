@@ -1,12 +1,11 @@
 #include "game.h"
-#include <vector>
-#include <numeric>
+
 #include <algorithm>
-#include <random>
 #include <iostream>
-
+#include <numeric>
+#include <random>
 #include <string>
-
+#include <vector>
 
 Game::Game()
 {
@@ -31,7 +30,7 @@ void Game::setupEntities()
 	m_pit2.  setPos(shuffledRooms[5]);
 }
 
-void Game::help()
+void Game::askForInstructions()
 {
 	char answer = '\0';
 	do
@@ -111,38 +110,77 @@ void Game::printRules()
 	std::cout << " PIT   -  'I FEEL A DRAFT'\n\n";
 }
 
-void Game::printRoomInfo(int playerPos, Map& gameMap)
+void Game::printWarnings()
 {
-	const auto& neighbors = gameMap.getNeighborRooms(playerPos);
+	int playerPos = m_player.getPos();
 
-	std::cout << "\nYOU ARE IN ROOM  " << playerPos << '\n';
-	std::cout << "TUNNELS LEAD TO  ";
+	if (m_gameMap.areConnected(playerPos, m_wumpus.getPos()))
+		std::cout << "I SMELL A WUMPUS\n";
 
-	for (int neighbor : neighbors)
+	if (m_gameMap.areConnected(playerPos, m_bat1.getPos()) ||
+		m_gameMap.areConnected(playerPos, m_bat2.getPos()))
+		std::cout << "BATS NEARBY\n";
+
+	if (m_gameMap.areConnected(playerPos, m_pit1.getPos()) ||
+		m_gameMap.areConnected(playerPos, m_pit2.getPos()))
+		std::cout << "I FEEL A DRAFT\n";
+}
+
+void Game::printRoomInfo()
+{
+	const int currentRoom = m_player.getPos();
+	const auto& tunnels = m_gameMap.getNeighborRooms(currentRoom);
+
+	std::cout << "YOU ARE IN ROOM  " << m_player.getPos() << '\n'
+			  << "TUNNELS LEAD TO  ";
+
+	for (int neighbor : tunnels)
 	{
 		std::cout << neighbor << ' ';
 	}
-	std::cout << std::endl;
+	std::cout << '\n';
+}
+
+bool Game::handlePlayerTurn()
+{
+	char playerChoice;
+	std::cout << std::string(1, '\n');
+
+	do
+	{
+		std::cout << "SHOOT OR MOVE (S-M)? ";
+		std::cin >> playerChoice;
+	} while (playerChoice != 'S' && playerChoice != 'M');
+
+	if (playerChoice == 'S')
+	{
+		return m_player.tryShoot();
+	} 
+	else if (playerChoice == 'M')
+	{
+		std::cout << 'M';
+		return true;
+	}
+
+	return false;
 }
 
 void Game::run()
 {
-	help();
+	askForInstructions();
 
-	std::cout << "\nHUNT THE WUMPUS\n";
+	std::cout << std::string(1, '\n');
+	std::cout << "HUNT THE WUMPUS";
+	std::cout << std::string(2, '\n');
 
 	bool isRunning = true;
 	while (isRunning)
 	{
-		int playerPos = m_player.getPos();
-		int wumpusPos = m_wumpus.getPos();
-		int batPos1   = m_bat1.  getPos();
-		int batPos2   = m_bat2.  getPos();
-		int pitPos1   = m_pit1.  getPos();
-		int pitPos2   = m_pit2.  getPos();
-
-		printRoomInfo(playerPos, m_gameMap);
-
-		isRunning = false;
+		printWarnings();
+		printRoomInfo();
+		if (!handlePlayerTurn())
+		{
+			isRunning = false;
+		}
 	}
 }
