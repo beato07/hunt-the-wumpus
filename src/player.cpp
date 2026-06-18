@@ -1,4 +1,6 @@
 #include "player.h"
+#include "map.h"
+#include "hazard.h"
 #include <iostream>
 
 bool Player::tryShoot(const Map& gameMap, Wumpus& wumpus)
@@ -34,5 +36,14 @@ bool Player::tryShoot(const Map& gameMap, Wumpus& wumpus)
 
 bool Player::tryMove(const Map& gameMap)
 {
-	return false;
+	int roomId = 0;
+	do
+	{
+		std::cout << "WHERE TO? ";
+		std::cin >> roomId;
+	} while (!gameMap.areConnected(m_playerPos, roomId));
+
+	m_playerPos = roomId;
+
+	return true;
 }

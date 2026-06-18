@@ -29,12 +29,19 @@ void Map::initializeCave()
 	m_cave[20] = { 11, 17, 19 };
 }
 
-const std::set<int>& Map::getNeighborRooms(int currentRoom)
+const std::vector<int>& Map::getNeighborRooms(int currentRoom) const
 {
-	return m_cave[currentRoom];
+	return m_cave.at(currentRoom);
 }
 
 bool Map::areConnected(int roomFirst, int roomSecond) const
 {
-	return m_cave.at(roomFirst).contains(roomSecond);
+	for (int neighbor : m_cave.at(roomFirst))
+	{
+		if (neighbor == roomSecond)
+		{
+			return true;
+		}
+	}
+	return false;
 }

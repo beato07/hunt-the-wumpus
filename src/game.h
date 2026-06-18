@@ -23,4 +23,5 @@ private:
 	void printWarnings();
 	void printRoomInfo();
 	bool handlePlayerTurn();
+	bool checkHazards();
 };

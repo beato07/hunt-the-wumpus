@@ -1,6 +1,7 @@
 #pragma once
-#include "map.h"
-#include "hazard.h"
+
+class Map;
+class Wumpus;
 
 class Player
 {
