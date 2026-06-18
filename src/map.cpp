@@ -34,7 +34,7 @@ const std::set<int>& Map::getNeighborRooms(int currentRoom)
 	return m_cave[currentRoom];
 }
 
-bool Map::areConnected(int roomFirst, int roomSecond)
+bool Map::areConnected(int roomFirst, int roomSecond) const
 {
 	return m_cave.at(roomFirst).contains(roomSecond);
 }

@@ -154,7 +154,7 @@ bool Game::handlePlayerTurn()
 
 	if (playerChoice == 'S')
 	{
-		return m_player.tryShoot();
+		return m_player.tryShoot(m_gameMap, m_wumpus);
 	} 
 	else if (playerChoice == 'M')
 	{

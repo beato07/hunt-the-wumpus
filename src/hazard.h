@@ -1,8 +1,5 @@
 #pragma once
 
-// Опережающее объявление
-class Map;
-
 class Hazard
 {
 public:

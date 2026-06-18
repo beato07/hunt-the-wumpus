@@ -1,14 +1,14 @@
 #include "player.h"
 #include <iostream>
 
-bool Player::tryShoot()
+bool Player::tryShoot(const Map& gameMap, Wumpus& wumpus)
 {
 	int roomId = 0;
 	do
 	{
 		std::cout << "ROOM #? ";
 		std::cin >> roomId;
-	} while (!m_gameMap.areConnected(m_playerPos, roomId));
+	} while (!gameMap.areConnected(m_playerPos, roomId));
 
 	if (m_arrowsCount == 0)
 	{
@@ -18,7 +18,7 @@ bool Player::tryShoot()
 
 	--m_arrowsCount;
 
-	if (roomId == m_wumpus.getPos())
+	if (roomId == wumpus.getPos())
 	{
 		std::cout << "AHA! YOU GOT THE WUMPUS!\n";
 		return false;
@@ -32,7 +32,7 @@ bool Player::tryShoot()
 	//std::cout << "TSK TSK TSK- WUMPUS GOT YOU!";
 }
 
-bool Player::tryMove()
+bool Player::tryMove(const Map& gameMap)
 {
 	return false;
 }

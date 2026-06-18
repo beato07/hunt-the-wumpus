@@ -4,6 +4,10 @@
 #include "hazard.h"
 
 class Game {
+public:
+	Game();
+	void run();
+
 private:
 	Map m_gameMap;
 	Player m_player;
@@ -19,8 +23,4 @@ private:
 	void printWarnings();
 	void printRoomInfo();
 	bool handlePlayerTurn();
-
-public:
-	Game();
-	void run();
 };

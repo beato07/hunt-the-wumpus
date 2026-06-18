@@ -7,7 +7,7 @@ class Map
 public:
 	Map();
 	const std::set<int>& getNeighborRooms(int currentRoom);
-	bool areConnected(int roomFirst, int roomSecond);
+	bool areConnected(int roomFirst, int roomSecond) const;
 
 private:
 	std::map<int, std::set<int>> m_cave;
