@@ -12,6 +12,18 @@ Game::Game()
 	setupEntities();
 }
 
+void Game::resetToInitialSetup()
+{
+	m_player.resetArrows();
+
+	m_player.setPos(m_initialPlayerPos);
+	m_wumpus.setPos(m_initialWumpusPos);
+	m_bat1.  setPos(m_initialBat1Pos);
+	m_bat2.  setPos(m_initialBat2Pos);
+	m_pit1.  setPos(m_initialPit1Pos);
+	m_pit2.  setPos(m_initialPit2Pos);
+}
+
 void Game::setupEntities()
 {
 	std::vector<int> shuffledRooms(20);
@@ -22,12 +34,19 @@ void Game::setupEntities()
 
 	std::shuffle(shuffledRooms.begin(), shuffledRooms.end(), gen);
 
-	m_player.setPos(shuffledRooms[0]);
-	m_wumpus.setPos(shuffledRooms[1]);
-	m_bat1.  setPos(shuffledRooms[2]);
-	m_bat2.  setPos(shuffledRooms[3]);
-	m_pit1.  setPos(shuffledRooms[4]);
-	m_pit2.  setPos(shuffledRooms[5]);
+	m_initialPlayerPos = shuffledRooms[0];
+	m_initialWumpusPos = shuffledRooms[1];
+	m_initialBat1Pos   = shuffledRooms[2];
+	m_initialBat2Pos   = shuffledRooms[3];
+	m_initialPit1Pos   = shuffledRooms[4];
+	m_initialPit2Pos   = shuffledRooms[5];
+
+	m_player.setPos(m_initialPlayerPos);
+	m_wumpus.setPos(m_initialWumpusPos);
+	m_bat1.  setPos(m_initialBat1Pos);
+	m_bat2.  setPos(m_initialBat2Pos);
+	m_pit1.  setPos(m_initialPit1Pos);
+	m_pit2.  setPos(m_initialPit2Pos);
 }
 
 void Game::askForInstructions()
@@ -195,14 +214,32 @@ void Game::run()
 
 	std::cout << "\nHUNT THE WUMPUS\n";
 
-	bool isRunning = true;
-	while (isRunning)
+	char playerChoice{};
+	do
 	{
-		printWarnings();
-		printRoomInfo();
-		if (!handlePlayerTurn())
+		bool isRunning = true;
+		while (isRunning)
 		{
-			isRunning = false;
+			printWarnings();
+			printRoomInfo();
+			if (!handlePlayerTurn())
+			{
+				isRunning = false;
+			}
 		}
-	}
+
+		std::cout << "SAME SET-UP (Y-N)? ";
+		std::cin >> playerChoice;
+		playerChoice = std::toupper(playerChoice);
+
+		if (playerChoice == 'Y')
+		{
+			resetToInitialSetup();
+		}
+		else if (playerChoice == 'N')
+		{
+			setupEntities();
+		}
+
+	} while (playerChoice == 'Y' || playerChoice == 'N');
 }
