@@ -175,28 +175,20 @@ bool Game::checkHazards()
 
 		if (currentRoom == m_wumpus.getPos())
 		{
-			std::cout << "TSK TSK TSK - WUMPUS GOT YOU!\n";
-			return false;
+			return m_wumpus.applyEffect();
 		}
 
 		if (currentRoom == m_bat1.getPos() || currentRoom == m_bat2.getPos())
 		{
-			std::cout << "ZAP! SUPER BATS SNATCH YOU AWAY TO A NEW ROOM!\n";
-
-			static std::random_device rd;
-			static std::mt19937 gen(rd());
-			std::uniform_int_distribution<int> dist(1, 20);
-
-			int randomRoom = dist(gen);
-			m_player.setPos(randomRoom);
+			if (currentRoom == m_bat1.getPos()) m_bat1.applyEffect(m_player);
+			else m_bat2.applyEffect(m_player);
 
 			continue;
 		}
 
 		if (currentRoom == m_pit1.getPos() || currentRoom == m_pit2.getPos())
 		{
-			std::cout << "YYYIIIIEEEE... YOU FELL INTO A PIT! GAME OVER.\n";
-			return false;
+			return m_pit1.applyEffect();
 		}
 		processingHazards = false;
 	}

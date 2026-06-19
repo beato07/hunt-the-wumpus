@@ -1,7 +1,8 @@
 #pragma once
+
+#include "hazard.h"
 #include "map.h"
 #include "player.h"
-#include "hazard.h"
 
 class Game {
 public:

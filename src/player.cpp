@@ -1,6 +1,8 @@
 #include "player.h"
+
 #include "map.h"
 #include "hazard.h"
+
 #include <iostream>
 
 bool Player::tryShoot(const Map& gameMap, Wumpus& wumpus)
@@ -19,7 +21,7 @@ bool Player::tryShoot(const Map& gameMap, Wumpus& wumpus)
 	}
 
 	--m_arrowsCount;
-
+	
 	if (roomId == wumpus.getPos())
 	{
 		std::cout << "AHA! YOU GOT THE WUMPUS!\n";
@@ -27,11 +29,17 @@ bool Player::tryShoot(const Map& gameMap, Wumpus& wumpus)
 	}
 	else
 	{
-		std::cout << "There is nothing here...\n";
+		std::cout << "MISSED\n";
+		wumpus.scare(gameMap);
+
+		if (m_playerPos == wumpus.getPos())
+		{
+			std::cout << "TSK TSK TSK- WUMPUS GOT YOU!";
+			return false;
+		}
+
 		return true;
 	}
-
-	//std::cout << "TSK TSK TSK- WUMPUS GOT YOU!";
 }
 
 bool Player::tryMove(const Map& gameMap)
