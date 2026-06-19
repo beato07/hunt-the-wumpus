@@ -27,19 +27,24 @@ bool Player::tryShoot(const Map& gameMap, Wumpus& wumpus)
 		std::cout << "AHA! YOU GOT THE WUMPUS!\n";
 		return false;
 	}
-	else
+	
+	if (gameMap.areConnected(roomId, wumpus.getPos()))
 	{
 		std::cout << "MISSED\n";
 		wumpus.scare(gameMap);
-
-		if (m_playerPos == wumpus.getPos())
-		{
-			std::cout << "TSK TSK TSK- WUMPUS GOT YOU!";
-			return false;
-		}
-
-		return true;
 	}
+	else
+	{
+		std::cout << "MISSED\n";
+	}
+
+	if (m_playerPos == wumpus.getPos())
+	{
+		std::cout << "TSK TSK TSK- WUMPUS GOT YOU!\n";
+		return false;
+	}
+
+	return true;
 }
 
 bool Player::tryMove(const Map& gameMap)
