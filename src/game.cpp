@@ -51,26 +51,26 @@ void Game::setupEntities()
 
 void Game::askForInstructions()
 {
-	char answer{};
-	do
+	std::string input;
+	while (true)
 	{
 		std::cout << "Instructions (Y-N)? ";
-		std::cin >> answer;
+		std::getline(std::cin, input);
 
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-		switch (tolower(answer))
+		if (input.length() == 1)
 		{
-		case 'y':
-			printRules();
-			break;
-		case 'n':
-			break;
-		default:
-			std::cout << "Invalid Response, try again\n";
-			break;
+			if (tolower(input[0]) == 'y')
+			{
+				printRules();
+				return;
+			}
+
+			else if (tolower(input[0]) == 'n')
+			{
+				return;
+			}
 		}
-	} while (tolower(answer) != 'y' && tolower(answer) != 'n');
+	}
 }
 
 void Game::printRules()
