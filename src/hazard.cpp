@@ -17,7 +17,7 @@ void Wumpus::scare(const Map& gameMap)
 	if (roll <= 75)
 	{
 		const auto& neighbors = gameMap.getNeighborRooms(m_hazardPos);
-		std::uniform_int_distribution<int> neighbor_dist(0, neighbors.size() - 1);
+		std::uniform_int_distribution<int> neighbor_dist(0, static_cast<int>(neighbors.size() - 1));
 		int randomRoom = neighbor_dist(gen);
 		m_hazardPos = neighbors[randomRoom];
 	}
