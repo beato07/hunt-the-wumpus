@@ -84,8 +84,7 @@ void Game::printRules()
 		<< "DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW\n"
 		<< "WHAT A DODECAHEDRON IS, ASK SOMEONE)\n";
 
-	std::string pass;
-	std::getline(std::cin, pass);
+	std::cin.ignore();
 
 	std::cout << "\n     HAZARDS:\n"
 		<< "BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM\n"
@@ -94,7 +93,7 @@ void Game::printRules()
 		<< "    GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER\n"
 		<< "    ROOM AT RANDOM. (WHICH MIGHT BE TROUBLESOME)\n";
 
-	std::getline(std::cin, pass);
+	std::cin.ignore();
 
 	std::cout << "\n    WUMPUS:\n"
 		<< "THE WUMPUS IS NOT BOTHERED BY THE HAZARDS (HE HAS SUCKER\n"
@@ -105,7 +104,7 @@ void Game::printRules()
 		<< "OR STAYS STILL (P=.25). AFTER THAT, IF HE IS WHERE YOU\n"
 		<< "ARE, HE EATS YOU UP (& YOU LOSE!)\n";
 
-	std::getline(std::cin, pass);
+	std::cin.ignore();
 
 	std::cout << "\n    YOU:\n"
 		<< "EACH TURN YOU MAY MOVE OR SHOOT AN ARROW\n"
@@ -116,7 +115,7 @@ void Game::printRules()
 		<< "    IF YOU MISS, THE WUMPUS WAKES UP AND MIGHT MOVE\n"
 		<< "    INTO YOUR ROOM (& EAT YOU!).\n";
 
-	std::getline(std::cin, pass);
+	std::cin.ignore();
 
 	std::cout << "\n    WARNINGS:\n"
 		<< "     WHEN YOU ARE ONE ROOM AWAY FROM WUMPUS OR HAZARD,\n"
