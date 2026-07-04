@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include <algorithm>
+#include <cctype>
 #include <iostream>
 #include <numeric>
 #include <random>
