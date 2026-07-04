@@ -149,33 +149,37 @@ void Game::printRoomInfo()
 	std::cout << "\nYOU ARE IN ROOM  " << m_player.getPos() << '\n'
 			  << "TUNNELS LEAD TO  ";
 
-	for (int neighbor : tunnels)
+	for (const int& neighbor : tunnels)
 	{
 		std::cout << neighbor << ' ';
 	}
-	std::cout << '\n';
+	std::cout << "\n\n";
 }
 
 bool Game::handlePlayerTurn()
 {
-	char playerChoice{};
-	do
+	std::string playerChoice;
+	while (true)
 	{
-		std::cout << "\nSHOOT OR MOVE (S-M)? ";
-		std::cin >> playerChoice;
-		playerChoice = std::toupper(playerChoice);
-	} while (playerChoice != 'S' && playerChoice != 'M');
+		std::cout << "SHOOT OR MOVE (S-M)? ";
+		std::getline(std::cin, playerChoice);
 
-	if (playerChoice == 'S' || playerChoice == 's')
-	{
-		return m_player.tryShoot(m_gameMap, m_wumpus);
-	} 
-	else if (playerChoice == 'M' || playerChoice == 'm')
-	{
-		m_player.tryMove(m_gameMap);
+		if (playerChoice.length() != 1)
+		{
+			continue;
+		}
 
-		bool keepPlaying = checkHazards();
-		return keepPlaying;
+		if (tolower(playerChoice[0]) == 's')
+		{
+			return m_player.tryShoot(m_gameMap, m_wumpus);
+		}
+
+		if (tolower(playerChoice[0]) == 'm')
+		{
+			m_player.tryMove(m_gameMap);
+
+			return checkHazards();
+		}
 	}
 
 	return false;
