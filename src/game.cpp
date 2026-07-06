@@ -236,13 +236,13 @@ void Game::run()
 
 		std::cout << "SAME SET-UP (Y-N)? ";
 		std::cin >> playerChoice;
-		playerChoice = std::toupper(playerChoice);
 
-		if (playerChoice == 'Y')
+		if (toupper(playerChoice) == 'Y')
 		{
 			resetToInitialSetup();
 		}
-		else if (playerChoice == 'N')
+
+		if (toupper(playerChoice) == 'N')
 		{
 			setupEntities();
 		}

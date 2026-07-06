@@ -4,31 +4,40 @@
 #include "hazard.h"
 
 #include <iostream>
+#include<limits>
 
 bool Player::tryShoot(const Map& gameMap, Wumpus& wumpus)
 {
-	int roomId = 0;
-	do
+	int roomNumber = 0;
+	while (true)
 	{
 		std::cout << "ROOM #? ";
-		std::cin >> roomId;
-	} while (!gameMap.areConnected(m_playerPos, roomId));
+		std::cin >> roomNumber;
+		
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
+		}
 
-	if (m_arrowsCount == 0)
-	{
-		std::cout << "HA HA HA - YOU LOSE!\n";
-		return false;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		if (gameMap.areConnected(m_playerPos, roomNumber))
+		{
+			break;
+		}
 	}
 
 	--m_arrowsCount;
 	
-	if (roomId == wumpus.getPos())
+	if (roomNumber == wumpus.getPos())
 	{
 		std::cout << "AHA! YOU GOT THE WUMPUS!\n";
 		return false;
 	}
 	
-	if (gameMap.areConnected(roomId, wumpus.getPos()))
+	if (gameMap.areConnected(roomNumber, wumpus.getPos()))
 	{
 		std::cout << "MISSED\n";
 		wumpus.scare(gameMap);
@@ -44,19 +53,39 @@ bool Player::tryShoot(const Map& gameMap, Wumpus& wumpus)
 		return false;
 	}
 
+	if (m_arrowsCount == 0)
+	{
+		std::cout << "HA HA HA - YOU LOSE!\n";
+		return false;
+	}
+
 	return true;
 }
 
 bool Player::tryMove(const Map& gameMap)
 {
-	int roomId = 0;
-	do
+	int roomNumber = 0;
+	while (true)
 	{
 		std::cout << "WHERE TO? ";
-		std::cin >> roomId;
-	} while (!gameMap.areConnected(m_playerPos, roomId));
+		std::cin >> roomNumber;
 
-	m_playerPos = roomId;
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
+		}
+
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		if (gameMap.areConnected(m_playerPos, roomNumber))
+		{
+			break;
+		}
+	}
+
+	m_playerPos = roomNumber;
 
 	return true;
 }
