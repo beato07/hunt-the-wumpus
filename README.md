@@ -6,7 +6,7 @@ A C++ implementation of the classic 1973 text-based adventure game by Gregory Yo
 
 ---
 
-## 🚀: Build
+## 🚀 Build
 
 This project uses an **out-of-source build**. All generated build files and artifacts will reside in a separate `build` directory.
 
